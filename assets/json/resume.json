@@ -1,12 +1,12 @@
 {
   "basics": {
     "name": "Ngoc Luu",
-    "label": "Enghineer / Reseacher",
+    "label": "Engineer / Reseacher",
     "image": "",
     "email": "ngochoc1704@gmail.com",
     "phone": "(+84) 982-405-336",
     "url": "https://ngochocc.github.io",
-    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
+    "summary": "Passionate about technology and mathematics solving problems, building the future!",
     "location": {
       "address": "Phao Dai Lang, Lang Thuong, Dong Da, Ha Noi",
       "postalCode": "CA 94115",
@@ -29,8 +29,7 @@
       "url": "https://prepedu.com",
       "startDate": "2024-10",
       "endDate": "Present",
-      "summary": "",
-      "highlights": [""]
+      "summary": ""
     },
     {
       "name": "CMC ATI",
@@ -38,8 +37,7 @@
       "url": "https://cmcati.vn",
       "startDate": "2024-04",
       "endDate": "2024-10",
-      "summary": "",
-      "highlights": [""]
+      "summary": ""
     },
     {
       "name": "DNSE Company",
@@ -47,8 +45,7 @@
       "url": "https://www.dnse.com.vn",
       "startDate": "2023-06",
       "endDate": "2023-09",
-      "summary": "",
-      "highlights": [""]
+      "summary": ""
     }
   ],
   "education": [
@@ -57,7 +54,7 @@
       "location": "Ha Noi, Viet Nam",
       "url": "https://hust.edu.vn",
       "area": "Student",
-      "studyType": "Bachelor Degree (3.62 / 4.00)",
+      "studyType": "Bachelor Degree (3.64 / 4.00)",
       "startDate": "2020",
       "endDate": "2024",
       "score": "10",
@@ -74,7 +71,7 @@
     },
     {
       "name": "Optimizing Answer Generator in Vietnamese Legal Question Answering Systems Using Language Models",
-      "publisher": "Annalen der Physik",
+      "publisher": "Thanh Huong, Tien Ngoc Luu, Minh TUan, Xuan Thanh, Sang Viet",
       "releaseDate": "TALLIP 2024",
       "url": "https://de.wikisource.org/wiki/Über_einen_die_Erzeugung_und_Verwandlung_des_Lichtes_betreffenden_heuristischen_Gesichtspunkt",
       "summary": ""
