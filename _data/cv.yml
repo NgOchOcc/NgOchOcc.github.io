@@ -2,83 +2,49 @@
   type: map
   contents:
     - name: Full Name
-      value: Khai Nguyen
-    - name: Languages
-      value: English, Vietnamese
+      value: Ngoc Luu
+    - name: Label
+      value: Engineer / Reseacher
+    - name: Email
+      value: ngochoc1704@gmail.com
+    - name: Url
+      value: https://ngochocc.github.io
+    - name: Location
+      value: Phao Dai Lang, Lang Thuong, Dong Da, Ha Noi
 
 - title: Education
   type: time_table
   contents:
-    - title: Ph.D. Student in Statistics
-      institution: University of Texas, Austin, USA
-      year: 2021-Now
-      description:
-        - Advised by Professor <a href="https://nhatptnk8912.github.io/">Nhat Ho</a> and Professor  <a href="https://www.ma.utexas.edu/component/cobalt/item/15-mathematics/364-mueller-peter?Itemid=1259">Peter Müller</a>
-    - title: B.Sc in Computer Science
+    - title: B.Sc in Computer Science (3.64 / 4.00)
       institution: Hanoi Univeristy of Science and Technology, Hanoi, Vietnam
-      year: 2015-2020
+      year: 2010-2024
       description:
-        - Excellence Degree (Top 1%) (5 years program)
-        - Thesis "Distributional Sliced Wasserstein and Applications to Generative Modeling"
+        - Excellence Degree
+        - Thesis "Continual relation extraction using prompt tuning techniques"
 
 - title: Experience
   type: time_table
   contents:
-    - title: Graduate Research Assistant
-      institution: The University of Texas at Austin
-      year: Spring 2025
+    - title: AI Engineer
+      institution: PREP Company
+      year: 2024/10 - Present
 
-    - title: Graduate Teaching Assistant
-      institution: The University of Texas at Austin
-      year: Fall 2024
+    - title: NLP Engineer / Researcher
+      institution: CMC ATI Company
+      year: 2024/04 - 2024/10
 
-    - title: Applied Scientist Intern
-      institution: Amazon Science
-      year: Summer 2024
+    - title: Data Scientist Intern
+      institution: DNSE Company
+      year: 2023/06 - 2023/09
 
-    - title: Graduate Research Assistant
-      institution: The University of Texas at Austin
-      year: 2023-2024
-
-    - title: Research Intern
-      institution: Toyota InfoTech Labs
-      year: Summer 2023
-
-    - title: Graduate Research Assistant
-      institution: The University of Texas at Austin
-      year: 2022-2023
-
-    - title: Research Intern
-      institution: AT&T Labs
-      year: Summer 2022
-
-    - title: AI Research Resident
-      institution: VinAI Research
-      year: 2019-2021
-      description:
-        - Advised by Dr. <a href="https://sites.google.com/site/buihhung/">Hung Bui</a> (Director)
-
-
-- title: Honors and Awards
+- title: Publication
   type: time_table
   contents:
-    - year: 2024
+    - year: AAAI 2025
       items:
-        - Top Reviewer Award at NeurIPS
-    - year: 2023
+        - 'Adaptive Prompting for Continual Relation Extraction: Within-Task Variance Perspective'
+        - 'Minh Le, Tien Ngoc Luu, An Nguyen The, Thanh-Thien Le, Trang Nguyen, Tung Thanh Nguyen, Linh Ngo Van, Thien Huu Nguyen'
+    - year: TALLIP 2024
       items:
-        - ICML 2023 Travel Grant
-    - year: 2022
-      items:
-        - Top Reviewer Award at NeurIPS
-        - NeurIPS 2022 Scholar Award
-        - ICML 2022 Travel Grant
-    - year: 2021
-      items:
-        - UT Austin Graduate Fellowship
-
-- title: Professional Services
-  type: list
-  contents:
-    - <u>Journal Reviewer:</u> Journal of Machine Learning Research (JMLR), IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), Transactions on Machine Learning Research  (TMLR), IEEE Transactions on Information Theory, Machine Learning Journal.
-    - <u>Conference Reviewer/ Program Committee:</u> NeurIPS (2021-2024), ICML (2021-2025), ICLR (2022-2025), AISTATS (2022-2025), AAAI (2023-2025), CVPR (2023-2025), ICCV (2023), ECCV (2024), ICASSP (2024-2025), COLM (2024).
+        - Optimizing Answer Generator in Vietnamese Legal Question Answering Systems Using Language Models
+        - Thanh Huong, Tien Ngoc Luu, Minh Tuan, Xuan Thanh, Sang Viet
