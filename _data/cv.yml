@@ -4,7 +4,7 @@
     - name: Full Name
       value: Ngoc Luu
     - name: Label
-      value: Engineer / Reseacher
+      value: Engineer / Researcher
     - name: Email
       value: ngochoc1704@gmail.com
     - name: Url
@@ -37,7 +37,7 @@
       institution: DNSE Company
       year: 2023/06 - 2023/09
 
-- title: Publication
+- title: Publications
   type: time_table
   contents:
     - year: AAAI 2025
