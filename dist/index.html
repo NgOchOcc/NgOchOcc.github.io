@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ngoc Luu — AI Researcher</title>
+<meta name="description" content="Ngoc Luu is an AI researcher working on efficient AI, reasoning, continual learning, and natural language processing.">
+<meta name="theme-color" content="#CDD0C8">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Ngoc Luu — AI Researcher">
+<meta property="og:description" content="Efficient AI · reasoning · continual learning · natural language processing.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23CDD0C8'/%3E%3Cpath d='M15 46V18l20 28V18M43 18v28h10' stroke='%23121212' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='51' cy='13' r='4' fill='%231F7BF0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&family=Geist+Mono:wght@400;500&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --board:#EDEFEA; --paper:#FFFFFF; --ink:#121212; --ink-2:#4D4D4D; --ink-3:#6E736E;
+  --line:#ECECEC; --line-soft:#F3F3F1; --line-2:#E0E0E0; --edge:#C9CDC4;
+  --sage:#CDD0C8; --sage-d:#B8BDB3; --sage-wash:#F0F1EE; --sage-deep:#3A3F38;
+  --blue:#1F7BF0; --blue-d:#1259C4; --blue-wash:#EAF2FE;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; color:var(--ink); background-color:var(--board);
+  background-image:
+    linear-gradient(rgba(43,98,168,.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,98,168,.075) 1px, transparent 1px),
+    linear-gradient(rgba(43,98,168,.042) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,98,168,.042) 1px, transparent 1px);
+  background-size:130px 130px, 130px 130px, 26px 26px, 26px 26px;
+  font-family:'Geist',-apple-system,sans-serif; font-size:14.5px; line-height:1.62; font-weight:300;
+  -webkit-font-smoothing:antialiased}
+body::after{content:""; position:fixed; inset:0; z-index:90; pointer-events:none;
+  background-image:var(--grain); background-size:160px; mix-blend-mode:multiply; opacity:.02}
+::selection{background:rgba(31,123,240,.16)}
+h1,h2,h3{margin:0; font-weight:500}
+a{color:var(--blue-d); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .15s,color .15s}
+a:hover{border-bottom-color:var(--blue-d)}
+a:focus-visible{outline:2px solid var(--blue); outline-offset:2px; border-radius:2px}
+.mono{font-family:'Geist Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums}
+
+/* ---- fixed top bar, sits on the board ---- */
+.topbar{position:fixed; top:0; left:0; right:0; height:52px; z-index:80;
+  background:rgba(237,239,234,.82); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(58,63,56,.12)}
+.gauge{position:absolute; left:0; bottom:-1px; height:2px; width:100%; background:var(--blue);
+  transform-origin:0 50%; transform:scaleX(0); pointer-events:none}
+.topbar .in{max-width:1240px; margin:0 auto; padding:0 32px; height:100%; display:flex; align-items:center; justify-content:space-between}
+.wordmark{display:flex; align-items:center; font-family:'Geist Mono',monospace; font-size:10.5px; letter-spacing:.22em; font-weight:500; color:var(--ink); border:0}
+.tava{width:0; height:26px; border-radius:8px; object-fit:cover; flex:none; opacity:0; margin-right:0;
+  border:1px solid rgba(18,18,18,.18); filter:saturate(.5) contrast(.97) brightness(1.02);
+  transition:width .25s ease, opacity .25s ease, margin .25s ease, filter .25s ease}
+.tava.monogram{display:grid; place-items:center; overflow:hidden; background:var(--sage); font-size:8px; letter-spacing:.08em}
+.wordmark:hover .tava{filter:none}
+.topbar.scrolled .tava{width:26px; opacity:1; margin-right:11px}
+.wordmark:hover{border:0; color:var(--ink)}
+.wordmark span{color:var(--ink-3); margin-left:.4em; white-space:pre}
+.topnav{display:flex; gap:24px}
+.topnav a{font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); border:0; padding:2px 0; transition:color .15s}
+.topnav a:hover{color:var(--ink)}
+.topnav a.active{color:var(--ink); box-shadow:0 12px 0 -10px var(--ink)}
+
+/* ---- the sheet ---- */
+.sheet{max-width:1240px; margin:76px auto 14px; background:var(--paper);
+  border:1px solid var(--edge); border-radius:3px; position:relative;
+  box-shadow:0 1px 2px rgba(40,45,38,.08), 0 26px 60px -32px rgba(40,45,38,.38)}
+.pad{padding:0 40px}
+
+/* ---- letterhead band ---- */
+.band{background:linear-gradient(180deg,#D4D7CF 0%,#CBCEC5 100%); position:relative; overflow:hidden;
+  border-radius:2px 2px 0 0; border-bottom:1px solid rgba(18,18,18,.14)}
+.band::after{content:""; position:absolute; left:0; right:0; bottom:0; height:7px; pointer-events:none; opacity:.5;
+  background-image:repeating-linear-gradient(90deg, rgba(30,70,110,.55) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(90deg, rgba(30,70,110,.55) 0 1px, transparent 1px 50px);
+  background-size:auto 4px, auto 7px; background-repeat:repeat-x; background-position:bottom left}
+.band::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:linear-gradient(rgba(43,98,168,.085) 1px, transparent 1px),linear-gradient(90deg, rgba(43,98,168,.085) 1px, transparent 1px);
+  background-size:78px 78px; mask-image:linear-gradient(180deg, transparent, #000 40%); -webkit-mask-image:linear-gradient(180deg, transparent, #000 40%)}
+.band .in{position:relative; display:flex; gap:26px; align-items:center; padding:28px 40px 26px}
+.hava{width:128px; height:128px; border-radius:18px; object-fit:cover; object-position:center 28%; display:block; flex:none;
+  border:1px solid rgba(18,18,18,.22); filter:saturate(.82) contrast(.98);
+  box-shadow:0 10px 24px -12px rgba(30,35,28,.5)}
+.hava.monogram{display:grid; place-items:center; background:rgba(255,255,255,.55); font-family:'Geist',sans-serif;
+  font-size:38px; font-weight:200; letter-spacing:.04em; color:var(--ink); position:relative; overflow:hidden}
+.hava.monogram::before{content:""; position:absolute; inset:12px; border:1px solid rgba(39,86,127,.35); border-radius:12px}
+.hava.monogram::after{content:"AI / 01"; position:absolute; right:11px; bottom:8px; font-family:'Geist Mono',monospace;
+  font-size:7px; letter-spacing:.12em; color:var(--ink-3)}
+.hkick{font-family:'Geist Mono',monospace; font-size:clamp(7.5px,1.05vw,9.5px); letter-spacing:.18em; white-space:nowrap; text-transform:uppercase; color:rgba(18,18,18,.66); margin:0 0 10px}
+.hname{font-size:40px; font-weight:200; letter-spacing:-.02em; line-height:1.05; color:var(--ink)}
+.htag{font-family:'Lora',Georgia,serif; font-style:italic; font-size:15px; text-wrap:balance; color:var(--sage-deep); margin:14px 0 1px; line-height:1.5}
+.hadv{font-size:12.5px; color:rgba(18,18,18,.68); margin:0}
+.hadv a{color:rgba(18,18,18,.88); border-bottom:1px solid rgba(18,18,18,.25)}
+.hadv a:hover{color:var(--blue-d); border-color:var(--blue-d)}
+.hlinks{display:flex; flex-wrap:wrap; gap:8px}
+.hlinks a,a.em{font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink); background:rgba(255,255,255,.55); border:1px solid rgba(18,18,18,.18); border-radius:100px;
+  padding:4.5px 12px; transition:background .15s, border-color .15s, color .15s}
+.hlinks a:hover,a.em:hover{background:#fff; border-color:rgba(18,18,18,.4)}
+.hlinks a span{color:var(--ink-3); margin-left:6px}
+.band .in > .hmain{flex:1; min-width:0}
+a.em{text-transform:none; letter-spacing:.06em; font-size:9.5px}
+.band .in > .hlinks{margin-left:auto; align-self:flex-end; flex:none; padding-bottom:3px;
+  display:grid; grid-template-columns:repeat(4,auto); gap:8px; justify-items:end}
+.hlinks a.em{grid-column:1 / -1}
+.hcard.aboutcard{width:min(320px,100%); margin:0 auto; align-self:center}
+
+
+/* ---- sections ---- */
+main{display:block}
+section{padding:23px 0 6px; scroll-margin-top:64px}
+#news,#awards{scroll-margin-top:64px}
+.shead{display:flex; align-items:baseline; gap:11px; border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:14px}
+.shead .no{font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--blue-d); font-weight:500}
+.shead h2{font-size:17px; letter-spacing:-.005em; font-weight:500}
+.shead .side{margin-left:auto; font-family:'Geist Mono',monospace; font-size:8.5px; letter-spacing:.14em; color:var(--ink-3); text-transform:uppercase;
+  display:flex; align-items:center; gap:7px}
+.shead .side .sg{width:14px; height:14px; display:block; opacity:.9}
+.bandsketch{position:absolute; top:13px; right:34px; width:150px; color:rgba(18,18,18,.48); pointer-events:none}
+
+.duo{display:grid; grid-template-columns:1.18fr .82fr; gap:0 44px; align-items:start}
+.duo-even{grid-template-columns:1fr 1fr}
+p{max-width:68ch; color:var(--ink-2); margin:0 0 11px; text-wrap:pretty}
+#about p{max-width:94ch}
+p b{font-weight:500; color:var(--ink)}
+p a{border-bottom:1px solid rgba(18,89,196,.25)}
+
+/* Fig. 1 card */
+.hcard{border:1px solid var(--line-2); border-radius:14px; padding:16px 16px 10px; margin:0 0 22px;
+  background-color:#fff;
+  background-image:linear-gradient(rgba(43,98,168,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(43,98,168,.05) 1px, transparent 1px);
+  background-size:9px 9px;
+  box-shadow:0 14px 30px -22px rgba(30,35,28,.35)}
+.hcard svg{width:100%; display:block; color:#27567F}
+.hcap{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-top:8px; padding-top:8px; border-top:1px solid var(--line)}
+.hcap em{font-family:'Lora',Georgia,serif; font-size:12px; color:var(--ink-2)}
+.hcap span{font-family:'Geist Mono',monospace; font-size:8px; letter-spacing:.14em; color:var(--ink-3); text-transform:uppercase; white-space:nowrap}
+.hcard.bandcard{margin:0 0 0 auto; width:264px; flex:none; padding:12px 12px 8px;
+  box-shadow:0 14px 30px -18px rgba(30,35,28,.45); border-color:rgba(18,18,18,.14)}
+.bandcard .hcap{margin-top:6px; padding-top:6px}
+.bandcard .hcap em{font-size:10.5px}
+
+.news{list-style:none; padding:0; margin:0}
+.news li{display:grid; grid-template-columns:64px 1fr; gap:12px; padding:6.5px 0; align-items:baseline; border-bottom:1px solid var(--line-soft,#F3F3F1)}
+.news li:last-child{border:0}
+.news time,.xp time,.xp .dt,.aw time,.aw .dt{font-variant-numeric:tabular-nums}
+.news time{font-family:'Geist Mono',monospace; font-size:10px; color:var(--ink-3); letter-spacing:.03em}
+.news p{margin:0; font-size:13.5px; max-width:none}
+.oral{color:#B42318; font-weight:500}
+.newsarch{margin-top:0}
+.newsarch summary{font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); cursor:pointer; list-style:none; padding:8px 0 2px; user-select:none}
+.newsarch summary::-webkit-details-marker{display:none}
+.newsarch summary:hover{color:var(--ink)}
+.newsarch[open] summary span{display:inline-block; transform:rotate(45deg)}
+
+/* publications */
+.pubbar{display:flex; align-items:center; gap:14px; margin:-2px 0 4px}
+.pblabel{font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3)}
+.pbtn{font-family:'Geist Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; padding:3px 0;
+  border:0; background:none; cursor:pointer; color:var(--ink-3); transition:color .15s; border-bottom:1.5px solid transparent}
+.pbtn:hover{color:var(--ink)}
+.pbtn.active{color:var(--ink); border-bottom-color:var(--blue)}
+.pball{margin-left:auto; font-family:'Geist Mono',monospace; font-size:9.5px; letter-spacing:.1em; color:var(--ink-2); border:0; text-transform:uppercase}
+.pball:hover{color:var(--blue-d)}
+
+.publist{display:grid; grid-template-columns:1fr}
+.pub{display:grid; grid-template-columns:148px 1fr; gap:16px; padding:9px 0; border-bottom:1px solid var(--line-soft); align-items:start; transition:background .2s}
+.pub:last-child{border-bottom:0}
+.pub:hover{background:linear-gradient(90deg, rgba(205,208,200,.16), transparent 70%)}
+.thumb{width:148px; height:96px; border:1px solid var(--line-2); border-radius:10px; overflow:hidden;
+  background-color:var(--sage-wash); position:relative; color:#2E5E8C;
+  background-image:linear-gradient(rgba(43,98,168,.045) 1px, transparent 1px),linear-gradient(90deg, rgba(43,98,168,.045) 1px, transparent 1px);
+  background-size:9px 9px; padding:8px; transition:border-color .2s, background .3s}
+.thumb > svg{display:block; height:100%; width:100%}
+.thumb .fno{position:absolute; bottom:4px; right:8px; font-family:'Geist Mono',monospace; font-size:7.5px; letter-spacing:.1em; color:var(--ink-3); z-index:3}
+.thumb .figimg{position:absolute; inset:8px; width:calc(100% - 16px); height:calc(100% - 16px); object-fit:contain; z-index:1; display:none;
+  filter:saturate(.92) contrast(.99); transition:filter .25s}
+.thumb.has-img{background-color:#fff}
+.thumb.has-img > svg{display:none}
+.thumb.has-img::after{content:""; position:absolute; inset:0; background:rgba(240,241,238,.22); z-index:2; pointer-events:none; transition:opacity .25s}
+.thumb.has-img .fno{background:rgba(255,255,255,.85); padding:0 3px; border-radius:3px}
+.pub:hover .thumb{border-color:var(--sage-d); background:#fff}
+.pub:hover .thumb.has-img::after{opacity:0}
+.pub:hover .thumb .figimg{filter:none}
+.pub h3{font-size:14.5px; line-height:1.45; margin:0 0 5px; font-weight:500; text-wrap:balance}
+.pub .au{font-size:12.5px; color:var(--ink-2); margin:0 0 8px; line-height:1.7; font-weight:300; max-width:none; text-wrap:pretty}
+.pub .au u{text-decoration:none; border-bottom:1.5px solid var(--blue); color:var(--ink); padding-bottom:.5px; font-weight:400}
+.lks{white-space:nowrap; display:inline-flex; gap:9px; align-items:center}
+.pub .meta{display:flex; gap:7px 10px; align-items:center; flex-wrap:wrap; font-size:12px; color:var(--ink-3)}
+.vtag{font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.08em; color:var(--ink-2); padding:3px 10px; font-weight:500;
+  background:var(--sage-wash); border:1px solid var(--line-2); border-radius:100px; white-space:nowrap}
+.stamp{font-family:'Geist Mono',monospace; font-size:8.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); border:1px dashed #C4C8C0; padding:2.5px 10px; border-radius:100px; display:inline-block; font-weight:400}
+
+.platestrip{margin:10px 0 0; display:flex; align-items:center; justify-content:flex-end; gap:14px}
+.pslabel{font-family:'Geist Mono',monospace; font-size:8px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3)}
+.psrow{display:flex; gap:8px}
+.psrow span,.psrow button{appearance:none; -webkit-appearance:none; width:30px; height:30px; padding:4px; background:#fff; border:1px solid var(--line);
+  border-radius:8px; color:#2E5E8C; opacity:.6; cursor:pointer; transition:opacity .15s, border-color .15s}
+.psrow span:hover,.psrow button:hover{opacity:1; border-color:var(--sage-d)}
+.psrow button:focus-visible{outline:2px solid var(--blue); outline-offset:2px; opacity:1}
+.psrow svg{width:100%; height:100%; display:block}
+
+/* experience + awards */
+.xplist{display:grid; grid-template-columns:1fr}
+.xp{display:grid; grid-template-columns:106px 1fr; gap:14px; padding:7.5px 0; border-bottom:1px solid var(--line-soft)}
+.xp:last-child{border:0}
+.xp time,.xp .dt{font-family:'Geist Mono',monospace; font-size:10px; color:var(--ink-3); letter-spacing:.02em; padding-top:3px}
+.xp h3{font-size:13.5px; font-weight:500}
+.xp p{font-size:12.5px; margin:1px 0 0; max-width:none; line-height:1.5}
+.xp p a, #about p a{white-space:nowrap}
+
+.aw{display:grid; grid-template-columns:44px 1fr; gap:11px; padding:6px 0; border-bottom:1px solid var(--line-soft); align-items:baseline}
+.aw:last-child{border:0}
+.aw time,.aw .dt{font-family:'Geist Mono',monospace; font-size:10px; color:var(--ink-3)}
+.aw span{font-size:12.5px; color:var(--ink-2); text-wrap:pretty}
+.svcbox{margin-top:16px}
+.svc{font-size:12.5px; color:var(--ink-2); margin:0 0 7px; max-width:none}
+.svc b{font-weight:500; color:var(--ink)}
+
+/* ---- in-sheet title block ---- */
+.titleblock{margin:30px 40px 0; border-top:1.5px solid #27567F}
+.tb-grid{display:grid; grid-template-columns:2fr 1fr .9fr .9fr minmax(max-content,1.2fr)}
+.tb{padding:10px 14px 12px; border-left:1px solid var(--line)}
+.tb:first-child{border-left:0; padding-left:0}
+.tb .k{display:block; font-family:'Geist Mono',monospace; font-size:7.5px; letter-spacing:.16em; color:var(--ink-3); text-transform:uppercase; margin-bottom:2px}
+.tb .v{font-family:'Geist Mono',monospace; font-size:10.5px; color:var(--ink); letter-spacing:.04em; white-space:nowrap}
+.ctest{display:flex; gap:3px; margin:6px 0 0}
+.ctest i{width:13px; height:6px; display:block; border-radius:2px}
+.sheetfoot{height:18px}
+
+.footnote{max-width:1240px; margin:0 auto; padding:0 32px 30px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-family:'Geist Mono',monospace; font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(58,63,56,.55)}
+
+@media (prefers-reduced-motion: reduce){ *{transition:none!important; animation:none!important} html{scroll-behavior:auto} }
+@media (max-width:1276px){ .sheet{margin-left:18px; margin-right:18px} }
+@media (max-width:1010px){
+  .bandsketch{display:none}
+  .band .in{flex-wrap:wrap}
+  .band .in > .hlinks{margin:12px 0 0; align-self:auto; flex:0 1 auto; min-width:0; display:flex; flex-wrap:wrap; justify-content:flex-start}
+}
+@media (max-width:980px){
+  .duo{grid-template-columns:1fr; gap:0}
+  .duo > * + *{margin-top:26px}
+  .hcard.aboutcard{width:min(360px,100%); margin:26px auto 0}
+}
+@media (max-width:700px){
+  .sheet{margin:64px 10px 12px}
+  .pad{padding:0 20px}
+  .titleblock{margin:24px 20px 0}
+  .topbar .in{padding:0 16px; justify-content:center}
+  .wordmark{display:none}
+  .topnav{gap:15px}
+  .topnav a{font-size:9px; letter-spacing:.1em}
+  section{padding:22px 0 6px}
+  .band .in{gap:16px; padding:20px 20px 18px; align-items:flex-start}
+  .hava{width:84px; height:84px; border-radius:14px; margin-top:3px}
+  .hname{font-size:30px}
+  .hkick{font-size:8.5px; letter-spacing:.12em; white-space:normal}
+  .bandcard{display:none}
+  .pub{grid-template-columns:88px 1fr; gap:12px}
+  .thumb{width:88px; height:64px; padding:5px}
+  .thumb .figimg{inset:4px; width:calc(100% - 8px); height:calc(100% - 8px)}
+  .xp{grid-template-columns:1fr; gap:2px; padding:9px 0}
+  .xp time,.xp .dt{padding-top:0}
+  .news li{grid-template-columns:58px 1fr; gap:10px}
+  .aw{grid-template-columns:40px 1fr; gap:9px}
+  .pubbar{flex-wrap:wrap}
+  .pball{margin-left:auto; width:auto; margin-top:0}
+  .platestrip{display:none}
+  .tb-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tb{border-left:0; padding-left:0}
+  .tb:first-child,.tb.bc{grid-column:1 / -1}
+  .footnote{padding:0 16px 24px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="gauge" aria-hidden="true"></div>
+  <div class="in">
+    <a class="wordmark" href="#top"><span class="tava monogram" aria-hidden="true">NL</span>NGOC LUU</a>
+    <nav class="topnav" aria-label="Section index">
+      <a href="#about">About</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Profile</a>
+    </nav>
+  </div>
+</header>
+
+<div class="sheet" id="top">
+  <div class="band">
+    <div class="in">
+      <img class="hava" src="figures/avatar_ngoc.JPG" alt="Portrait of Ngoc Luu" width="128" height="128" decoding="async">
+      <div class="hmain">
+        <p class="hkick">AI researcher · Efficient &amp; reasoning AI · Vietnam</p>
+        <h1 class="hname">Ngoc Luu</h1>
+        <p class="htag">Building efficient AI systems that reason reliably.</p>
+        <p class="hadv">Researcher at Qualcomm AI Research · Seeking Computer Science PhD positions for Fall 2027</p>
+      </div>
+      <svg class="bandsketch" viewBox="0 0 150 80" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true"><circle cx="20" cy="52" r="1.8" fill="currentColor" stroke="none"/><ellipse cx="20" cy="52" rx="13" ry="4.6" transform="rotate(-16 20 52)"/><ellipse cx="20" cy="52" rx="13" ry="4.6" transform="rotate(56 20 52)" stroke-dasharray="2.4 2.6"/><circle cx="30.5" cy="46.5" r="1.2" fill="currentColor" stroke="none"/><path stroke="#1F7BF0" stroke-dasharray="3 3.4" d="M36 44 C 64 28, 96 24, 128 32"/><path stroke="#1F7BF0" d="M124.6 29.2 l4.2 2.6 -4.6 1.6"/><circle cx="64" cy="31.6" r="1" fill="currentColor" stroke="none"/><circle cx="97" cy="26.8" r="1" fill="currentColor" stroke="none"/><g font-family="Geist Mono,monospace" font-size="7" fill="currentColor" stroke="none"><text x="34" y="52">x</text><text x="86" y="18">f(x,θ)</text></g></svg>
+      <div class="hlinks">
+        <a href="https://github.com/NgOchOcc" target="_blank" rel="noopener">GitHub<span>↗</span></a>
+        <a href="https://www.linkedin.com/in/ng%E1%BB%8Dc-l%C6%B0u-4b88b6263/" target="_blank" rel="noopener">LinkedIn<span>↗</span></a>
+        <a href="assets/Ngoc_Luu_Resume.pdf" target="_blank" rel="noopener">Résumé<span>↓</span></a>
+        <a href="tel:+84982405336">Phone<span>↗</span></a>
+        <a class="em" href="mailto:ngochoc1704@gmail.com">ngochoc1704@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="pad">
+    <section id="about">
+      <div class="duo">
+        <div>
+          <div class="shead"><span class="no">01</span><h2>About</h2><span class="side"><svg class="sg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="3.6" r="1.3"/><path d="M9.4 4.8 5.6 16.6 M10.6 4.8 14.4 16.6"/><path stroke-dasharray="2 2.6" d="M4.4 17.6 A 12 12 0 0 0 15.6 17.6"/></svg>GEN</span></div>
+          <p>I am an AI researcher with <b>four years</b> of experience AI reseach. I currently work at Qualcomm AI Research under the guidance of Dr. Tung Pham.</p>
+          <p>My research centers on <b>AI efficiency</b> and <b>reasoning</b>. I have also worked on continual learning, <b>natural language processing</b>, <b>AI safety</b>.</p>
+          <p>I am interested in methods that make AI models more efficient, robust, and useful in practice. I am actively seeking Computer Science PhD positions for <b>Fall 2027</b>.</p>
+        </div>
+        <figure class="hcard aboutcard">
+          <svg viewBox="0 0 340 160" role="img" aria-label="Research diagram connecting learning, reasoning, and deployment">
+            <g fill="none" stroke="currentColor" stroke-width="1.1"><rect x="22" y="18" width="82" height="32" rx="9"/><rect x="236" y="18" width="82" height="32" rx="9"/><rect x="129" y="96" width="82" height="32" rx="9"/><path d="M260 108 h58 v34 h-58 z" opacity=".9"/><path d="M268 117 h42 M268 124 h42 M268 131 h27" stroke-width=".8" opacity=".6"/></g>
+            <g fill="none" stroke="currentColor"><path d="M104 34 H230"/><path d="M224 30 l7 4 -7 4"/><path d="M276 50 C268 74 238 92 216 105"/><path d="M222 99 l-7 6 2 -9"/></g>
+            <g fill="none" stroke="#1F7BF0"><path d="M129 108 C88 98 61 76 61 52" stroke-dasharray="4 4"/><path d="M57 60 l4 -9 6 8"/></g>
+            <g fill="currentColor"><circle cx="104" cy="34" r="1.6"/><circle cx="276" cy="50" r="1.6"/><circle cx="129" cy="108" r="1.6"/></g>
+            <g font-family="Geist Mono,monospace" font-size="9.5" fill="#27567F" letter-spacing=".1em"><text x="63" y="37" text-anchor="middle">LEARN</text><text x="277" y="37" text-anchor="middle">REASON</text><text x="170" y="116" text-anchor="middle">OPTIMIZE</text><text x="288" y="154" text-anchor="middle">DEPLOY</text></g>
+            <g font-family="Geist Mono,monospace" font-size="8" fill="#7188A3" letter-spacing=".08em"><text x="167" y="26" text-anchor="middle">ADAPT</text><text x="252" y="79" text-anchor="middle">VERIFY</text><text x="76" y="87" text-anchor="middle" fill="#1F7BF0">IMPROVE</text></g>
+          </svg>
+          <figcaption class="hcap"><em>Fig. 1 — research, from learning to deployment.</em><span>R&amp;D loop</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="highlights">
+      <div class="shead"><span class="no">02</span><h2>Highlights</h2><span class="side"><svg class="sg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.4" cy="14.6" r="1.2" fill="currentColor" stroke="none"/><path d="M8.6 10.6 a 5.6 5.6 0 0 1 1.6 4.4 M11.6 7.6 a 9.8 9.8 0 0 1 2.6 7.2"/></svg>LOG</span></div>
+      <ol class="news">
+        <li><time datetime="2026">2026 Sep</time><p><b>Mixture-of-Control</b> accepted at NeurIPS 2026; work focuses on state-aware fine-tuning for transformer-based models.</p></li>
+        <li><time datetime="2026">2026 Jul</time><p><b>Beyond the Frontier</b> appeared at an ICML 2026 workshop, exploring stochastic backtracking for efficient test-time scaling.</p></li>
+        <li><time datetime="2025">2025 Oct</time><p>Joined <b>Qualcomm AI Research</b> to work on efficient AI and reasoning.</p></li>
+        <li><time datetime="2025-10">2025 Oct</time><p><b>Adaptive Prompting for Continual Relation Extraction</b> was presented at AAAI 2025 <strong class="oral">Oral</strong>.</p></li>
+      </ol>
+    </section>
+
+    <section id="publications">
+      <div class="shead"><span class="no">03A</span><h2>Publications</h2><span class="side"><svg class="sg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.4 2.8 h3.4 M10.1 2.8 v3.4 l2.5 2.7 -1.6 1.5"/><path d="M5.6 13.2 h9 M4.6 17 h11.2 M13.6 8.6 c2 1.5 2.4 3 1.8 4.6"/><circle cx="9.2" cy="11.4" r=".9" fill="currentColor" stroke="none"/></svg>IDX 04</span></div>
+      <div class="pubbar"><span class="pblabel">Sort by</span><button type="button" class="pbtn active" data-sort="year" aria-pressed="true">Year</button><button type="button" class="pbtn" data-sort="author" aria-pressed="false">Lead contribution</button><span class="pball">* equal contribution</span></div>
+      <div class="publist">
+        <div class="pub" data-fa="1">
+          <div class="thumb"><span class="fno">F.01</span><img class="figimg" alt="Mixture-of-Control model architecture" data-srcs="figures/mixture_of_control.png"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><rect x="8" y="23" width="14" height="18" rx="4"/><rect x="25" y="14" width="14" height="36" rx="4"/><rect x="42" y="20" width="14" height="24" rx="4"/><path d="M15 20v-7M32 11V6M49 17v-7"/><path d="M15 45c8 8 26 8 34 1" stroke="#1F7BF0" stroke-dasharray="3 3"/></g></svg></div>
+          <div><h3>Mixture-of-Control: State-Aware Fine-Tuning for Transformer-based Models</h3><p class="au"><u>Ngoc Luu*</u>, Duc Anh Nguyen*, Tung Pham, Toan Tran</p><div class="meta"><span class="vtag">NeurIPS 2026</span><span>Efficient Finetuning</span><span class="lks"><a href="https://arxiv.org/pdf/2606.31397" target="_blank" rel="noopener">PDF</a></span></div></div>
+        </div>
+        <div class="pub" data-fa="0">
+          <div class="thumb"><span class="fno">F.02</span><img class="figimg" alt="Stochastic backtracking and subpool selection diagram" data-srcs="figures/backtracking.png"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M10 48 C19 22 30 18 40 25 S49 46 55 15" stroke-width="1.2"/><circle cx="18" cy="33" r="2.2"/><circle cx="32" cy="21" r="2.2"/><circle cx="46" cy="34" r="2.2"/><path d="M46 34 C39 41 30 44 24 39" stroke="#1F7BF0" stroke-dasharray="3 3"/><path d="M29 39l-6 0 2 5" stroke="#1F7BF0"/></g></svg></div>
+          <div><h3>Beyond the Frontier: Stochastic Backtracking for Efficient Test-Time Scaling</h3><p class="au">Dao Tran, Duc Anh Le, <u>Ngoc Luu</u>, Quan Pham, Tung Pham, Hung Bui</p><div class="meta"><span class="vtag">ICML 2026 Workshop</span><span>Efficient test-time scaling</span><span class="lks"><a href="https://arxiv.org/pdf/2605.25143" target="_blank" rel="noopener">PDF</a></span></div></div>
+        </div>
+        <div class="pub" data-fa="1">
+          <div class="thumb"><span class="fno">F.03</span><img class="figimg" alt="Adaptive prompting architecture for continual relation extraction" data-srcs="figures/cl_relation_extraction.png"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M10 45h44M14 40V18h12v22M30 40V11h12v29M46 40V25h8"/><path d="M16 30h8M32 22h8M47 33h6" stroke="#1F7BF0"/><path d="M12 51 C26 47 38 53 52 48" stroke-dasharray="2 3"/></g></svg></div>
+          <div><h3>Adaptive Prompting for Continual Relation Extraction: Within-Task Variance Perspective</h3><p class="au"><u>Ngoc Luu*</u>, Minh Le*, An Nguyen*, Thanh Thien, Trang Nguyen, Tung Nguyen, Linh Ngo, Thien Huu Nguyen</p><div class="meta"><span class="vtag">AAAI 2025 · Oral</span><span>Continual Learning</span><span class="lks"><a href="https://ojs.aaai.org/index.php/AAAI/article/download/34616/36771" target="_blank" rel="noopener">PDF</a></span></div></div>
+        </div>
+        <div class="pub" data-fa="1">
+          <div class="thumb"><span class="fno">F.05</span><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 14h40v31H30l-10 8v-8h-8z"/><path d="M20 23h24M20 29h18M20 35h11"/><circle cx="45" cy="43" r="9" stroke="#1F7BF0"/><path d="M41 43l3 3 6-7" stroke="#1F7BF0"/></g></svg></div>
+          <div><h3>Optimizing Answer Generator in Vietnamese Legal Question Answering Systems</h3><p class="au"><u>Ngoc Luu</u>, Thanh Nguyen, Tuan Dao, Sang Dinh, Huong Le</p><div class="meta"><span class="vtag">TALLIP 2024</span><span>LLM Training</span><span class="lks"><a href="https://dl.acm.org/doi/pdf/10.1145/3732938" target="_blank" rel="noopener">PDF</a></span></div></div>
+        </div>
+      </div>
+      <div class="platestrip"><span class="pslabel">F.01&ndash;F.05 · research sketches</span><span class="psrow" id="psrow"></span></div>
+    </section>
+
+    <section id="submissions">
+      <div class="shead"><span class="no">03B</span><h2>Submission</h2><span class="side">SUB 01</span></div>
+      <div class="publist">
+        <div class="pub" data-fa="1">
+          <div class="thumb"><span class="fno">F.04</span><img class="figimg" alt="Distribution redistribution method for retain-free model unlearning" data-srcs="figures/unleaning.png"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M14 13h36v38H14z"/><path d="M20 21h24M20 27h20M20 33h24M20 39h14" opacity=".7"/><path d="M17 48L47 16" stroke="#1F7BF0" stroke-width="1.5"/><path d="M39 47h8v-8" stroke="#1F7BF0"/></g></svg></div>
+          <div><h3>Forget The Fact, Keep The Form: Distribution Redistribution For Retain-Free MDLM Unlearning</h3><p class="au"><u>Ngoc Luu*</u>, Giap Nguyen*, Dinh Phung, Tung Pham</p><div class="meta"><span class="vtag">Submitted at ICLR 2027</span><span>Machine Unlearning</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="duo duo-even">
+        <div>
+          <div class="shead"><span class="no">04A</span><h2>Research experience</h2><span class="side">LAB</span></div>
+          <div class="xplist">
+            <div class="xp"><span class="dt">2025.10 — now</span><div><h3>Qualcomm AI Research · AI Researcher</h3><p>Efficient AI and reasoning AI, supervised by Dr. Tung Pham.</p></div></div>
+            <div class="xp"><span class="dt">2022.10 — 2024.05</span><div><h3>Data Science Laboratory, SoICT · Research Assistant</h3><p>Learn fudementally about Continual Learning and NLP with Dr. Linh Ngo. One paper was accepted for an AAAI 2025 oral presentation.</p></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="shead"><span class="no">04B</span><h2>Industry experience</h2><span class="side">ENG</span></div>
+          <div class="xplist">
+            <div class="xp"><span class="dt">2024.10 — 2025.10</span><div><h3>Prep · AI Engineer</h3><p>Developed the automated IELTS Writing and Speaking scoring systems.</p></div></div>
+            <div class="xp"><span class="dt">2024.03 — 2024.10</span><div><h3>CMC ATI · AI Researcher</h3><p>Developed the generalized NER, and ASR improvements for speech-to-text.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="duo duo-even">
+        <div>
+          <div class="shead"><span class="no">05A</span><h2>Education &amp; achievements</h2><span class="side">REC</span></div>
+          <div class="xp"><span class="dt">2020 — 2024</span><div><h3>Hanoi University of Science and Technology</h3><p>Bachelor of Computer Science · GPA 3.62 / 4.00</p></div></div>
+          <div class="aw"><time datetime="2024">2024</time><span>Top 2 on the SLU-track leaderboard at the SoICT Hackathon</span></div>
+          <div class="aw"><time datetime="2020">2020</time><span>Top 0.01% in the Vietnam National Exam</span></div>
+        </div>
+        <div>
+          <div class="shead"><span class="no">05B</span><h2>Skills</h2><span class="side">KIT</span></div>
+          <div class="svcbox">
+            <p class="svc"><b>Programming</b> — Python, C++</p>
+            <p class="svc"><b>Mathematics</b> — Calculus, linear algebra, numerical optimization, probability, statistics</p>
+            <p class="svc"><b>Languages</b> — Vietnamese (native), English (fluent)</p>
+            <p class="svc"><b>Research areas</b> — Efficient AI, reasoning, continual learning, NLP, speech and language systems</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="titleblock">
+    <div class="tb-grid">
+      <div class="tb"><span class="k">project</span><span class="v">NGOC LUU — PERSONAL INDEX</span></div>
+      <div class="tb"><span class="k">drawn by</span><span class="v">N. LUU</span></div>
+      <div class="tb"><span class="k">sheet</span><span class="v">01 / 01</span></div>
+      <div class="tb"><span class="k">scale</span><span class="v">1 : 1</span></div>
+      <div class="tb bc"><span class="k">palette</span><span class="ctest" aria-hidden="true"><i style="background:#121212"></i><i style="background:#4D4D4D"></i><i style="background:#CDD0C8"></i><i style="background:#1F7BF0"></i><i style="background:#ECECEC"></i></span></div>
+    </div>
+  </div>
+  <div class="sheetfoot"></div>
+</div>
+
+<div class="footnote"><span>© 2026 Ngoc Luu · Built by hand, no framework</span><span>ngochoc1704@gmail.com</span></div>
+
+<script>
+(function(){var tb=document.querySelector('.topbar'),band=document.querySelector('.band');if(tb&&band&&'IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){tb.classList.toggle('scrolled',!e.isIntersecting)})},{rootMargin:'-52px 0px 0px 0px'}).observe(band)}}());
+(function(){var g=document.querySelector('.gauge');if(g){var t=false;function gp(){t=false;var m=document.documentElement.scrollHeight-innerHeight;g.style.transform='scaleX('+(m>0?Math.min(1,scrollY/m):0)+')'}addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(gp)}},{passive:true});addEventListener('resize',gp);gp()}}());
+(function(){var ids=['about','highlights','publications','experience','education'],links={};document.querySelectorAll('.topnav a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});var els=ids.map(function(id){return document.getElementById(id)}).filter(Boolean),tick=false;function upd(){tick=false;var line=innerHeight*.3,cur=els[0];els.forEach(function(el){if(el.getBoundingClientRect().top<=line)cur=el});ids.forEach(function(id){var l=links[id];if(l)l.classList.toggle('active',cur&&cur.id===id)})}addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);upd()}());
+(function(){var row=document.getElementById('psrow');document.querySelectorAll('.publist .pub').forEach(function(pub){var svg=pub.querySelector('.thumb > svg');if(!svg||!row)return;var cell=document.createElement('button');cell.type='button';cell.appendChild(svg.cloneNode(true));cell.title=(pub.querySelector('h3')||{textContent:''}).textContent.split(':')[0];cell.setAttribute('aria-label','Go to '+cell.title);cell.addEventListener('click',function(){pub.scrollIntoView({behavior:'smooth',block:'center'})});row.appendChild(cell)})}());
+(function(){var list=document.querySelector('.publist');if(!list)return;var orig=[].slice.call(list.querySelectorAll('.pub'));document.querySelectorAll('.pbtn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.pbtn').forEach(function(x){x.classList.remove('active');x.setAttribute('aria-pressed','false')});b.classList.add('active');b.setAttribute('aria-pressed','true');var items=orig.slice();if(b.dataset.sort==='author')items.sort(function(a,x){return(+x.dataset.fa||0)-(+a.dataset.fa||0)});items.forEach(function(el){list.appendChild(el)})})})}());
+(function(){document.querySelectorAll('.figimg').forEach(function(im){var sources=(im.dataset.srcs||'').split('|').filter(Boolean),i=0;function next(){if(i>=sources.length){im.remove();return}im.src=sources[i++]}im.onerror=next;im.onload=function(){im.style.display='block';var thumb=im.closest('.thumb');if(thumb)thumb.classList.add('has-img')};next()})}());
+</script>
+</body>
+</html>
