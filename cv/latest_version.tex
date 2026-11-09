@@ -1,89 +1,109 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Academic CV for Ngoc Luu
-% Based on the Medium Length Professional CV template
+% Academic CV for Ngoc Luu (one page)
+% Based on the Medium Length Professional CV template (resume.cls)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass{resume}
 
-\usepackage[left=0.58in,top=0.44in,right=0.58in,bottom=0.46in]{geometry}
-\usepackage[hidelinks]{hyperref}
+\usepackage[left=0.55in,top=0.4in,right=0.55in,bottom=0.3in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amssymb}
+\usepackage{fontawesome5}
 \usepackage{tabularx}
-\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
 
-\newcommand{\tab}[1]{\hspace{.2667\textwidth}\rlap{#1}}
-\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+%----------------------------------------------------------------------------------------
+% STYLE
+%----------------------------------------------------------------------------------------
+
+% 10.5pt body (the class fixes 11pt); slightly smaller secondary text.
+\renewcommand{\normalsize}{\fontsize{10.5}{12.9}\selectfont}
+\renewcommand{\small}{\fontsize{9.7}{11.8}\selectfont}
+\setlength{\parskip}{0pt}
+% Avoid hyphenating words across lines.
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\emergencystretch=1.5em
+
+\definecolor{accent}{RGB}{20,55,110}
+\definecolor{muted}{RGB}{90,90,90}
+
+% The header is drawn manually below, so disable the class's name printer.
+\makeatletter
+\def\printname{}
+\makeatother
+
+% Section: small-caps accent title with a thin accent rule.
+\renewenvironment{rSection}[1]{%
+  \vspace{0.45em}%
+  {\color{accent}\large\scshape\bfseries #1}\par\vspace{0.12em}%
+  {\color{accent}\hrule height 0.6pt}\vspace{0.25em}%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{0em}%
+    \setlength{\topsep}{0.3em}%
+    \setlength{\partopsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\itemsep}{0pt}%
+  }%
+  \item[]%
+}{%
+  \end{list}%
+}
+
+% Entry: organization / dates, then role / location, then bullets.
+\renewenvironment{rSubsection}[4]{%
+  {\bfseries #1}\ifthenelse{\equal{#3}{}}{}{\sep{\itshape #3}} \hfill {\color{muted}#2}%
+  \begin{list}{\color{accent}\tiny$\blacksquare$}{%
+    \setlength{\leftmargin}{1.1em}%
+    \setlength{\labelsep}{0.5em}%
+    \setlength{\topsep}{0.05em}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+  }%
+}{%
+  \end{list}\vspace{0.2em}%
+}
+
+% Publication: linked title / venue, then authors.
 \newcommand{\publication}[3]{%
-  \begin{tabularx}{\linewidth}{@{}X r@{}}
-    \textbf{#1} & \textit{#2}
-  \end{tabularx}
-  #3\par\smallskip
+  \textbf{#1}\\
+  {\small #3} \hfill {\small\itshape\color{accent}#2}\par\vspace{0.2em}%
 }
 
-\def\nameskip{\smallskip}
-\def\addressskip{\smallskip}
-\def\sectionskip{\smallskip}
-\def\sectionlineskip{\smallskip}
-
-% Compact section spacing while retaining a clear hierarchy.
-\renewenvironment{rSection}[1]{
-  \vspace{0.25em}
-  \MakeUppercase{\bfseries #1}
-  \vspace{0.15em}
-  \hrule
-  \begin{list}{}{
-    \setlength{\leftmargin}{1.2em}
-    \setlength{\topsep}{0.35em}
-    \setlength{\partopsep}{0pt}
-    \setlength{\parsep}{0pt}
-    \setlength{\itemsep}{0pt}
-  }
-  \item[]
-}{
-  \end{list}
-}
-
-\renewenvironment{rSubsection}[4]{
-  {\bfseries #1} \hfill {#2}
-  \ifthenelse{\equal{#3}{}}{}{\\{\em #3} \hfill {\em #4}}
-  \smallskip
-  \begin{list}{$\cdot$}{\leftmargin=0em}
-    \setlength{\itemsep}{-0.35em}
-    \vspace{-0.35em}
-}{
-  \end{list}
-  \vspace{0.15em}
-}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyfoot[R]{\footnotesize Ngoc Luu \quad \thepage}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-\setlength{\footskip}{20pt}
-
-\name{Ngoc Luu}
-\address{Vietnam \\ (+84) 982-405-336 \\ \href{mailto:ngochoc1704@gmail.com}{ngochoc1704@gmail.com}}
-\address{\href{https://ngochocc.github.io/}{Website} \\ \href{https://github.com/NgOchOcc}{GitHub} \\ \href{https://www.linkedin.com/in/ng\%E1\%BB\%8Dc-l\%C6\%B0u-4b88b6263/}{LinkedIn}}
-\address{AI Researcher $\vert$ Efficient AI, Reasoning, and Natural Language Processing}
+\newcommand{\me}{\textbf{Ngoc Luu}}
+\newcommand{\sep}{\hspace{0.6em}{\color{muted}$\vert$}\hspace{0.6em}}
 
 \begin{document}
 \normalsize
 
 %----------------------------------------------------------------------------------------
-% PROFILE AND INTERESTS
+% HEADER
+%----------------------------------------------------------------------------------------
+
+\begin{center}
+  {\color{accent}\fontsize{26}{30}\selectfont\bfseries Ngoc Luu}\\[0.3em]
+  {\color{muted}\scshape AI Researcher \,$\cdot$\, Efficient AI \& Reasoning \,$\cdot$\, Vietnam}\\[0.3em]
+  \small
+  \faPhone*\ (+84) 982-405-336 \sep
+  \faEnvelope[regular]\ \href{mailto:ngochoc1704@gmail.com}{ngochoc1704@gmail.com} \sep
+  \faGlobe\ \href{https://ngochocc.github.io/}{ngochocc.github.io} \sep
+  \faGithub\ \href{https://github.com/NgOchOcc}{NgOchOcc} \sep
+  \faLinkedin\ \href{https://www.linkedin.com/in/ng\%E1\%BB\%8Dc-l\%C6\%B0u-4b88b6263/}{ngoc-luu}
+\end{center}
+\vspace{-0.1em}
+
+%----------------------------------------------------------------------------------------
+% PROFILE
 %----------------------------------------------------------------------------------------
 
 \begin{rSection}{Research Profile}
-AI researcher working on efficient learning and reasoning in foundation models. My work
-spans state-based fine-tuning, test-time scaling, rehearsal-free continual learning,
-machine unlearning, and low-resource natural language processing. I am currently an AI
-Researcher at Qualcomm AI Research under the guidance of Dr. Tung Pham. I am seeking
-Computer Science PhD positions for Fall 2027.
-\end{rSection}
-
-\begin{rSection}{Research Interests}
-Efficient adaptation and inference $\cdot$ LLM reasoning and test-time scaling $\cdot$
-Continual learning and unlearning $\cdot$ Natural language processing
+AI researcher with four years of research and engineering experience, focused on efficient and
+reasoning-capable AI. Currently at Qualcomm AI Research with Dr.~Tung Pham, working on efficient
+fine-tuning, test-time scaling, and machine unlearning. Seeking CS PhD positions for \textbf{Fall 2027}.\\[0.15em]
+\textbf{Interests:} Efficient AI \,$\cdot$\, Reasoning \,$\cdot$\, Continual Learning \,$\cdot$\,
+Natural Language Processing
 \end{rSection}
 
 %----------------------------------------------------------------------------------------
@@ -91,9 +111,42 @@ Continual learning and unlearning $\cdot$ Natural language processing
 %----------------------------------------------------------------------------------------
 
 \begin{rSection}{Education}
-{\bf Hanoi University of Science and Technology} \hfill {\em 2020 -- 2024}\\
-Bachelor of Computer Science \hfill GPA: 3.62/4.00\\
-Undergraduate thesis: \emph{Continual Learning for Relation Extraction}
+{\bfseries Hanoi University of Science and Technology (HUST)}\sep{\itshape Bachelor of Computer Science} \hfill {\color{muted}2020 -- 2024}\\
+GPA: 3.62/4.00\sep Thesis: \emph{Continual Learning for Relation Extraction} (AAAI 2025, oral)
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+% PUBLICATIONS
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Publications}
+
+\publication
+{\href{https://arxiv.org/abs/2606.31397}{Mixture-of-Control: State-Aware Fine-Tuning for Transformer-based Models}}
+{NeurIPS 2026}
+{Duc Anh Nguyen$^*$, \me$^*$, Tung Pham, Toan Tran}
+
+\publication
+{\href{https://arxiv.org/abs/2605.25143}{Beyond the Frontier: Stochastic Backtracking for Efficient Test-Time Scaling}}
+{ICML 2026 Workshop}
+{Dao Tran, Duc Anh Le, \me, Quan Pham, Tung Pham, Hung Bui}
+
+\publication
+{\href{https://ojs.aaai.org/index.php/AAAI/article/view/34616}{Adaptive Prompting for Continual Relation Extraction: A Within-Task Variance Perspective}}
+{AAAI 2025 Oral}
+{Minh Le$^*$, \me$^*$, An Nguyen$^*$, Thanh Thien, Trang Nguyen, Tung Nguyen, Linh Ngo, Thien Huu Nguyen}
+
+\publication
+{\href{https://doi.org/10.1145/3732938}{Optimizing Answer Generator in Vietnamese Legal Question Answering Systems Using Language Models}}
+{ACM TALLIP 2025}
+{Huong Le$^*$, \me$^*$, Thanh Nguyen, Tuan Dao, Sang Dinh}
+
+\publication
+{Forget the Fact, Keep the Form: Distribution Redistribution for Retain-Free MDLM Unlearning}
+{ICLR 2027 (submitted)}
+{\me, Giap Nguyen, Dinh Phung, Tung Pham}
+
+{\footnotesize\color{muted}$^*$Equal contribution.}
 \end{rSection}
 
 %----------------------------------------------------------------------------------------
@@ -102,76 +155,39 @@ Undergraduate thesis: \emph{Continual Learning for Relation Extraction}
 
 \begin{rSection}{Research Experience}
 
-\begin{rSubsection}{Qualcomm AI Research}{Oct 2025 -- Present}{AI Researcher}{Vietnam}
-\item Conduct research on memory- and compute-efficient adaptation and inference-time reasoning for transformer models and LLMs with Dr. Tung Pham.
-\item Co-developed Mixture-of-Control, a state-aware fine-tuning framework that enables cross-block information exchange while preserving memory and computational efficiency.
-\item Developed stochastic backtracking methods for test-time scaling that revisit historical reasoning states to improve the accuracy--token trade-off.
+\begin{rSubsection}{Qualcomm AI Research}{Oct 2025 -- Present}{AI Researcher}{}
+\item Research on efficient AI and reasoning for transformer-based models with Dr.~Tung Pham.
+\item Contributed to state-aware fine-tuning (NeurIPS 2026), stochastic backtracking for test-time
+      scaling (ICML 2026 Workshop), and retain-free unlearning for masked diffusion language models.
 \end{rSubsection}
 
-\begin{rSubsection}{Data Science Laboratory, SoICT}{Oct 2022 -- May 2024}{Undergraduate Research Assistant}{Vietnam}
-\item Researched rehearsal-free continual relation extraction with Dr. Linh Ngo, focusing on catastrophic forgetting, prompt selection, and knowledge consolidation without retaining prior-task data.
-\item Developed a task-specific prompt-pool approach that captures within-task variation while improving separation across tasks.
-\item Completed an undergraduate thesis that led to an AAAI 2025 oral publication.
+\begin{rSubsection}{Data Science Lab, SoICT, HUST}{Oct 2022 -- May 2024}{Undergraduate Research Assistant}{}
+\item Researched continual learning for relation extraction with Dr.~Linh Ngo; undergraduate thesis
+      accepted as an \textbf{AAAI 2025 oral presentation}.
 \end{rSubsection}
 
-\begin{rSubsection}{SoICT, Hanoi University of Science and Technology}{Oct 2023 -- Mar 2024}{Undergraduate Research Assistant}{Vietnam}
-\item Conducted research on Vietnamese legal question answering under Prof. Le Thanh Huong.
-\item Contributed to the construction of Vietnamese legal provisions and question-answer datasets for training and evaluation.
-\item Built a retrieval-augmented system and fine-tuned compact language models for answer generation in a low-resource legal domain; the work was published in ACM TALLIP.
+\begin{rSubsection}{SoICT, HUST}{Oct 2023 -- Mar 2024}{Undergraduate Research Assistant}{}
+\item Researched Vietnamese legal question answering with Prof.~Le Thanh Huong and developed a
+      legal-domain chatbot; work published in \textbf{ACM TALLIP 2025}.
 \end{rSubsection}
 
 \end{rSection}
 
-\newpage
-
 %----------------------------------------------------------------------------------------
-% PUBLICATIONS
+% INDUSTRY EXPERIENCE
 %----------------------------------------------------------------------------------------
 
-\begin{rSection}{Publications and Manuscripts}
+\begin{rSection}{Industry Experience}
 
-\publication
-{\href{https://arxiv.org/abs/2606.31397}{Mixture-of-Control: State-Aware Fine-Tuning for Transformer-based Models}}
-{NeurIPS 2026}
-{Duc Anh Nguyen$^*$, \textbf{Tien Ngoc Luu}$^*$, Tung Pham, Toan Tran}
-
-\publication
-{\href{https://arxiv.org/abs/2605.25143}{Beyond the Frontier: Stochastic Backtracking for Efficient Test-Time Scaling}}
-{ICML 2026 Workshop}
-{Dao Tran, Duc Anh Le, \textbf{Ngoc Luu}, Quan Pham, Tung Pham, Hung Bui}
-
-\publication
-{\href{https://ojs.aaai.org/index.php/AAAI/article/view/34616}{Adaptive Prompting for Continual Relation Extraction: A Within-Task Variance Perspective}}
-{AAAI 2025 -- Oral}
-{Minh Le$^*$, \textbf{Tien Ngoc Luu}$^*$, An Nguyen$^*$, Thanh-Thien Le, Trang Nguyen, Tung Thanh Nguyen, Linh Ngo, Thien Huu Nguyen}
-
-\publication
-{Forget the Fact, Keep the Form: Distribution Redistribution for Retain-Free MDLM Unlearning}
-{Submitted to ICLR 2027}
-{\textbf{Ngoc Luu}$^*$, Giap Nguyen$^*$, Dinh Phung, Tung Pham}
-
-\publication
-{\href{https://doi.org/10.1145/3732938}{Optimizing Answer Generator in Vietnamese Legal Question Answering Systems Using Language Models}}
-{ACM TALLIP 2025}
-{Huong Le, \textbf{Ngoc Luu}, Thanh Nguyen, Tuan Dao, Sang Dinh}
-
-{\footnotesize $^*$Equal contribution.}
-\end{rSection}
-
-%----------------------------------------------------------------------------------------
-% ENGINEERING EXPERIENCE
-%----------------------------------------------------------------------------------------
-
-\begin{rSection}{Engineering Experience}
-
-\begin{rSubsection}{Prep}{Oct 2024 -- Oct 2025}{AI Engineer}{Vietnam}
-\item Developed production systems for automated IELTS Speaking and Writing assessment.
-\item Built speech and text evaluation models for criterion-level scoring and feedback generation.
+\begin{rSubsection}{Prep}{Oct 2024 -- Oct 2025}{AI Engineer}{}
+\item Built an AI system for automated IELTS Speaking and Writing scoring, including speech and
+      text evaluation models for criterion-level assessment.
 \end{rSubsection}
 
-\begin{rSubsection}{CMC ATI}{Mar 2024 -- Oct 2024}{AI Engineer}{Vietnam}
-\item Developed an internal retrieval-augmented chatbot and a named-entity recognition model for extracting information from official documents.
-\item Improved automatic speech recognition models for Vietnamese speech-to-text applications.
+\begin{rSubsection}{CMC ATI}{Mar 2024 -- Oct 2024}{AI Engineer}{}
+\item Developed an internal chatbot for employees and a named-entity recognition model for
+      extracting key information from official documents.
+\item Improved speech-to-text accuracy through automatic speech recognition (ASR) model development.
 \end{rSubsection}
 
 \end{rSection}
@@ -180,22 +196,15 @@ Undergraduate thesis: \emph{Continual Learning for Relation Extraction}
 % SKILLS AND HONORS
 %----------------------------------------------------------------------------------------
 
-\begin{rSection}{Technical Skills}
-\begin{tabular}{@{}>{\bfseries}l @{\hspace{1.5em}} p{0.77\linewidth}}
-Programming & Python, C++ \\
-Machine Learning & PyTorch, Transformers, large language models, retrieval-augmented generation, fine-tuning \\
-Research Areas & Efficient adaptation, test-time scaling, continual learning, machine unlearning, relation extraction \\
-Mathematics & Linear algebra, numerical optimization, probability, statistics \\
-Languages & Vietnamese (native), English (fluent)
-\end{tabular}
+\begin{rSection}{Skills}
+\textbf{Programming:} Python, C++\sep\textbf{Frameworks:} PyTorch, Transformers\\
+\textbf{Mathematics:} Calculus, Linear Algebra, Numerical Optimization, Probability and Statistics\\
+\textbf{Languages:} Vietnamese (native), English (fluent)
 \end{rSection}
 
-\begin{rSection}{Honors and Achievements}
-\begin{itemize}
-\item Top 2, Spoken Language Understanding track, SoICT Hackathon, 2024.
-\item Awarded two Academic Merit Scholarships at Hanoi University of Science and Technology.
-\item Top 0.01\% in the Vietnam National High School Graduation Examination, 2020.
-\end{itemize}
+\begin{rSection}{Honors}
+Top 2, Spoken Language Understanding track, SoICT Hackathon \hfill {\color{muted}2024}\\
+Top 0.01\% nationwide, Vietnam National High School Graduation Examination \hfill {\color{muted}2020}
 \end{rSection}
 
 \end{document}
